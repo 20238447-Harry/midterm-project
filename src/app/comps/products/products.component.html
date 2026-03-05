@@ -1,6 +1,6 @@
 <h2>Products</h2>
 
-<table border="1" width="100%">
+<table border="1" width="80%" style="margin:auto;">
 <thead>
 <tr>
 <th>ID</th>
@@ -9,33 +9,26 @@
 <th>Action</th>
 </tr>
 </thead>
-
 <tbody>
 
 @for(product of products; track product.id){
 
 <tr>
-
 <td>{{product.id}}</td>
 <td>{{product.name}}</td>
 <td>{{product.status}}</td>
-
 <td>
 <button (click)="viewProductDetails(product)">
 View
 </button>
 </td>
-
 </tr>
-
 }
 
 </tbody>
 </table>
 @if(showModal){
-
 <div class="modal-overlay" (click)="closeModal()">
-
 <div class="modal-content" (click)="$event.stopPropagation()">
 
 <h3>Product Details</h3>
@@ -56,8 +49,6 @@ View
 }
 
 <button (click)="closeModal()">Close</button>
-
 </div>
 </div>
-
 }

@@ -1,0 +1,15 @@
+.navbar .container {
+  display: flex;
+  justify-content: center; 
+  position: relative;     
+}
+
+.navbar-brand {
+  position: absolute;
+  left: 0;
+}
+
+.navbar .dropdown-menu {
+  left: auto;
+  right: auto;
+}
