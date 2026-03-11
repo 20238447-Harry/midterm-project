@@ -7,6 +7,7 @@ import { EventBindingComponent } from './comps/event-binding/event-binding.compo
 import { TwoWayBindingComponent } from './comps/two-way-binding/two-way-binding.component';
 import { ProductsComponent } from './comps/products/products.component';
 import { ProdListsComponent } from './prodManagement/prod-lists/prod-lists.component';
+import { ViewDetailsComponent } from './prodManagement/view-details/view-details.component';
 
 export const routes: Routes = [
 
@@ -16,5 +17,10 @@ export const routes: Routes = [
 { path: 'property-binding', component: PropertyBindingComponent },
 { path: 'event-binding', component: EventBindingComponent },
 { path: 'two-way-binding', component: TwoWayBindingComponent },
-{ path: 'product-lists-component', component: ProdListsComponent }
+  { path: 'prodlist', component: ProdListsComponent, children: [
+        {path: ':id', children: [
+            {path: 'view', component: ViewDetailsComponent}
+        ]},
+
+    ] }
 ];

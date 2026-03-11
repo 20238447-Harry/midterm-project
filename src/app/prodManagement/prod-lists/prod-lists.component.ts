@@ -1,27 +1,28 @@
-import { CommonModule} from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { RouterOutlet, RouterLink, ActivatedRoute, Router } from '@angular/router';
-import { Product } from '../../models/product.interface';
-import { ProductService } from '../product.service';
+import { CommonModule } from '@angular/common';
+import { Product } from '../../models/product';
+import { ProductService } from '../../Services/product.service';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-prod-lists',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterOutlet],
+  imports: [CommonModule, RouterLink],
   templateUrl: './prod-lists.component.html',
   styleUrls: ['./prod-lists.component.css']
 })
 export class ProdListsComponent implements OnInit {
 
   products: Product[] = [];
+  returnUrl: string | null = null;
+  searchPlaceholder: string = 'Search by name, category, brand...';
+  selectedId: number | null = null;
   searchTerm: string = '';
-  selectedID: number | null = null;
-  searchPlaceholder: string = "Search by ProductID, Name, or category...";
 
   constructor(
     private productService: ProductService,
-    private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -29,16 +30,20 @@ export class ProdListsComponent implements OnInit {
   }
 
   getProduct(p: Product): void {
-    this.selectedID = p.id;
-    this.router.navigate(['/product', p.id]);
+    this.selectedId = p.id;
+    this.router.navigate(['/products', p.id]);
   }
 
-  get filteredProducts(): Product[] {
+  getFilteredProducts(): Product[] {
+    if (!this.searchTerm) return this.products;
+
     const term = this.searchTerm.toLowerCase();
+
     return this.products.filter(p =>
       p.name.toLowerCase().includes(term) ||
-      p.id.toString().includes(term) ||
-      p.category.toLowerCase().includes(term)
+      p.category.toLowerCase().includes(term) ||
+      p.brand.toLowerCase().includes(term)
     );
   }
+
 }
