@@ -8,13 +8,15 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-view-details',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule],
   templateUrl: './view-details.component.html',
   styleUrls: ['./view-details.component.css']
 })
 export class ViewDetailsComponent implements OnInit {
 
   product: Product | undefined;
+
+  saved =false ;
 
   constructor(
     private productService: ProductService,
@@ -28,7 +30,15 @@ export class ViewDetailsComponent implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/products']);
+    this.router.navigate(['/prodlist']);
+  }
+
+  save(): void{
+    if(this.product){
+      this.productService.updateProduct(this.product)
+      this.saved = true;
+      setTimeout(() => (this.saved=false)), 2500;
+    }
   }
 
 }

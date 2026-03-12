@@ -14,10 +14,12 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 export class ProdListsComponent implements OnInit {
 
   products: Product[] = [];
+  selectedProduct: Product | undefined;
   returnUrl: string | null = null;
-  searchPlaceholder: string = 'Search by name, category, brand...';
+  searchPlaceholder: string = 'Search by name, prod-lists';
   selectedId: number | null = null;
   searchTerm: string = '';
+  showModal: boolean = false;
 
   constructor(
     private productService: ProductService,
@@ -31,7 +33,7 @@ export class ProdListsComponent implements OnInit {
 
   getProduct(p: Product): void {
     this.selectedId = p.id;
-    this.router.navigate(['/products', p.id]);
+    this.router.navigate(['/prodManagement/view-details', p.id,'details']);
   }
 
   getFilteredProducts(): Product[] {
@@ -44,6 +46,11 @@ export class ProdListsComponent implements OnInit {
       p.category.toLowerCase().includes(term) ||
       p.brand.toLowerCase().includes(term)
     );
+
+  }
+
+    closeModal(): void {
+    console.log("Modal closed");
   }
 
 }
