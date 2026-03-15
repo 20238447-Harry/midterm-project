@@ -1,34 +1,64 @@
-<h2>Products</h2>
+<div class="container mt-4">
+  <h2>Product Management</h2>
 
-<table border="1" width="80%" style="margin:auto;">
-<thead>
-<tr>
-<th>ID</th>
-<th>Name</th>
-<th>Status</th>
-<th>Action</th>
-</tr>
-</thead>
-<tbody>
+  <div class="search-box">
+    <input
+      type="text"
+      class="form-control"
+      [(ngModel)]="searchTerm"
+      placeholder="{{ searchPlaceholder }}"
+    />
+  </div>
 
-@for(product of products; track product.id){
+  <table class="table table-hover product-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Price</th>
+        <th>Stock</th>
+        <th>Status</th>
+        <th>Brand</th>
+        <th>Rating</th>
+      </tr>
+    </thead>
 
-<tr>
-<td>{{product.id}}</td>
-<td>{{product.name}}</td>
-<td>{{product.status}}</td>
-<td>{{product.category}}</td>
-<td>
-<a class="btn-view" [routerLink]="['/prodManagement/view-details', product.id,'details']" (onclick)="getProduct(product)">View</a>
+    <tbody>
+      @for (product of getFilteredProducts(); track product.id) {
+        <tr (click)="getProduct(product)">
+          <td>
+            <input class="form-control" [(ngModel)]="product.name">
+          </td>
 
-</td>
-</tr>
-}
+          <td>
+            <input class="form-control" [(ngModel)]="product.category">
+          </td>
 
-</tbody>
-</table>
+          <td>
+            <input class="form-control" type="number" [(ngModel)]="product.price">
+          </td>
 
+          <td>
+            <input class="form-control" type="number" [(ngModel)]="product.stock">
+          </td>
 
+          <td>
+            <input class="form-control" [(ngModel)]="product.status">
+          </td>
 
+          <td>
+            <input class="form-control" [(ngModel)]="product.brand">
+          </td>
 
+          <td>
+            <input class="form-control" type="number" [(ngModel)]="product.rating">
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
 
+  <!-- CHILD COMPONENT WILL LOAD HERE -->
+  <router-outlet></router-outlet>
+
+</div>

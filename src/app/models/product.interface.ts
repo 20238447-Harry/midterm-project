@@ -9,4 +9,5 @@ export interface Product {
   brand: string;
   rating: number;
   supplier: string;
+  
 }

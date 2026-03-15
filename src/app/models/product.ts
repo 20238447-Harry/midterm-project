@@ -8,6 +8,6 @@ export interface Product {
   description: string;
   brand: string;
   rating: number;
-  supplier: string;
   
+  dateAdded: string;
 }

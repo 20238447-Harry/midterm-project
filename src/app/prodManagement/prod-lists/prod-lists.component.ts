@@ -1,25 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { Product } from '../../models/product';
 import { ProductService } from '../../Services/product.service';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 
 @Component({
-  selector: 'app-prod-lists',
+  selector: 'app-prodlist',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, FormsModule, RouterOutlet],
   templateUrl: './prod-lists.component.html',
   styleUrls: ['./prod-lists.component.css']
 })
 export class ProdListsComponent implements OnInit {
 
   products: Product[] = [];
-  selectedProduct: Product | undefined;
-  returnUrl: string | null = null;
-  searchPlaceholder: string = 'Search by name, prod-lists';
   selectedId: number | null = null;
-  searchTerm: string = '';
-  showModal: boolean = false;
+  searchTerm = '';
+  searchPlaceholder = 'Search by name, category, brand...';
 
   constructor(
     private productService: ProductService,
@@ -31,12 +29,13 @@ export class ProdListsComponent implements OnInit {
     this.products = this.productService.getProducts();
   }
 
-  getProduct(p: Product): void {
-    this.selectedId = p.id;
-    this.router.navigate(['/prodManagement/view-details', p.id,'details']);
+  getProduct(e: Product): void {
+    this.selectedId = e.id;
+    this.router.navigate(['/prodlist', e.id]);
   }
 
   getFilteredProducts(): Product[] {
+
     if (!this.searchTerm) return this.products;
 
     const term = this.searchTerm.toLowerCase();
@@ -46,11 +45,5 @@ export class ProdListsComponent implements OnInit {
       p.category.toLowerCase().includes(term) ||
       p.brand.toLowerCase().includes(term)
     );
-
   }
-
-    closeModal(): void {
-    console.log("Modal closed");
-  }
-
 }

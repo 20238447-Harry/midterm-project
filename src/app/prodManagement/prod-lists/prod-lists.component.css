@@ -1,0 +1,40 @@
+.container {
+  max-width: 900px;
+}
+
+h2 {
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.search-box {
+  margin: 0 auto 15px auto;
+  width: 300px;
+}
+
+.search-box input {
+  width: 100%;
+}
+
+.product-table {
+  background: #59b5ea;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.product-table thead {
+  background: #3d3d3d;
+  color: rgb(255, 253, 253);
+}
+
+.product-table tbody tr:hover {
+  background-color: #f5f5f5;
+  cursor: pointer;
+}
+
+input.form-control {
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+}
